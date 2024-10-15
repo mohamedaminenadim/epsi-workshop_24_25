@@ -1,0 +1,17 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: Fig
+
+  datasource:
+      url: jdbc:mysql://localhost:3306/workshop
+      username: root
+      password: Root2024
+      driver-class-name: com.mysql.cj.jdbc.Driver
+jpa:
+    hibernate:
+        ddl-auto: update
+    show-sql: true
+
