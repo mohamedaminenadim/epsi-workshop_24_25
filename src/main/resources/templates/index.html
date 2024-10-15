@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fig App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+<!--    <script src="/js/index.js"></script>-->
+</head>
+<body>
+<!-- Header -->
+<header>
+    <h1>Fig Web App</h1>
+</header>
+
+<!-- Main Content -->
+<main>
+    <div class="container">
+        <img src="images/logo_fig_no_bg.png" alt="Fig Logo" class="logo"/>
+        <button id="get-started-btn" class="get-started">Get started</button>
+    </div>
+    <div id="login-form" class="login-form">
+        <button class="back-button" id="back-button">&larr; Back</button>
+        <form action="login">
+            <label for="email">E-mail</label>
+            <input type="text" id="email">
+            <label for="password">Password</label>
+            <input type="password" id="password">
+            <button>Login</button>
+            <div class="login-form-footer">
+                <p>Forgot your password ? <a href="password-reset.html">Click here to reset your password.</a></p>
+                <p>Don't have an account yet ? <a href="registration">Click here to register now</a></p>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Fig App. Tous droits réservés.</p>
+</footer>
+
+<script>
+    const getStartedBtn = document.getElementById('get-started-btn');
+    const loginForm = document.getElementById('login-form');
+    const backButton = document.getElementById('back-button');
+
+    // Initially hide the form
+    loginForm.style.display = 'none';
+
+    // Function to show the form with fade-in effect
+    function showForm() {
+        loginForm.style.display = 'flex';
+        setTimeout(() => {
+            loginForm.style.opacity = 1;
+        }, 10);
+    }
+
+    // Function to hide the form with fade-out effect
+    function hideForm() {
+        loginForm.style.opacity = 0;
+        setTimeout(() => {
+            loginForm.style.display = 'none';
+        }, 750); // Duration matches the transition time
+    }
+
+    // Event listeners for button clicks
+    getStartedBtn.addEventListener('click', showForm);
+    backButton.addEventListener('click', hideForm);
+</script>
+
+</body>
+</html>

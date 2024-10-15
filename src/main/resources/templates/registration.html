@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fig App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <h1>Fig Web App</h1>
+</header>
+
+<!-- Main Content -->
+<main>
+    <div id="register-form" class="register-form">
+        <form action="register">
+            <label for="username">Username</label>
+            <input type="text" id="username">
+            <label for="email">E-mail</label>
+            <input type="text" id="email">
+            <label for="password">Password</label>
+            <input type="password" id="password">
+            <button>Register</button>
+            <div class="register-form-footer">
+                <p>Already have an account ? <a href="index">Click here to login.</a></p>
+            </div>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>
