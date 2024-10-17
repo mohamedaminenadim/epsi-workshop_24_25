@@ -32,20 +32,23 @@ public class UserService {
         user.setUsername(username);
         user.setEmail(email);
 
-        userRepository.save(user);
 
         UserLoginEntity userLogin = new UserLoginEntity();
         userLogin.setUser(user);
-        userLogin.setPassword(passwordEncoder.encode(password)); // Hashing password
+        userLogin.setPassword(passwordEncoder.encode(password));
 
         userLoginRepository.save(userLogin);
 
-        return user;
+        return userRepository.save(user);
     }
 
-    public boolean login(String email, String password) throws Exception {
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new Exception("User not found"));
+    public boolean login(String username, String password) throws Exception {
+        UserEntity user = new UserEntity();
+        if (username.contains("@")) {
+            user = userRepository.findByEmail(username).orElseThrow(() -> new Exception("User not found"));
+        } else {
+            user = userRepository.findByUsername(username).orElseThrow(() -> new Exception("User not found"));
+        }
 
         UserLoginEntity userLogin = userLoginRepository.findByUser(user)
                 .orElseThrow(() -> new Exception("Invalid credentials"));

@@ -15,4 +15,14 @@ public class WebController {
     public String register() {
         return "registration";
     }
+
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
+
+    @GetMapping("/error")
+    public String error() {
+        return "error";
+    }
 }

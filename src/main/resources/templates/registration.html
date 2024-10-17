@@ -15,7 +15,7 @@
 <!-- Main Content -->
 <main>
     <div id="register-form" class="register-form">
-        <form action="register">
+        <form action="/register" method="post">
             <label for="username">Username</label>
             <input type="text" id="username">
             <label for="email">E-mail</label>
@@ -27,6 +27,7 @@
                 <p>Already have an account ? <a href="index">Click here to login.</a></p>
             </div>
         </form>
+        <p th:if="${param.error}" th:text="'Error: ' + ${param.error}"></p>
     </div>
 </main>
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Time</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/blocked.css}">
+    <script type="text/javascript">
+        function startCountdown(timeRemaining) {
+            var timer = document.getElementById('countdown');
+            var interval = setInterval(function() {
+                var seconds = Math.floor((timeRemaining / 1000) % 60);
+                var minutes = Math.floor((timeRemaining / (1000 * 60)) % 60);
+                var hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
+
+                timer.textContent = hours + "h " + minutes + "m " + seconds + "s ";
+
+                if (timeRemaining <= 0) {
+                    clearInterval(interval);
+                    timer.textContent = "Screen time is over!";
+                }
+
+                timeRemaining -= 1000;
+            }, 1000);
+        }
+
+        window.onload = function() {
+            var timeRemaining = [[${timeRemaining}]];
+            startCountdown(timeRemaining);
+        };
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Screen time</h1>
+    </div>
+
+    <div class="logo">
+        <img th:src="@{/images/logo_fig_no_bg.png}" alt="Fig Logo">
+    </div>
+
+    <div class="icon">
+        <div class="hourglass"></div>
+    </div>
+
+    <div class="message">
+        <p>Your screen time is over.<br>
+            You are fig now.<br>
+            Let’s do something more...</p>
+        <p class="interesting">interesting</p>
+    </div>
+
+    <div id="countdown" class="countdown"></div>
+
+    <div class="button-container">
+        <button class="main-button">Let’s go</button>
+    </div>
+</div>
+</body>
+</html>
