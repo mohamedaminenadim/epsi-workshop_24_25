@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #c78700;
+    color: black;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.header {
+    font-size: 1.5rem;
+    color: white;
+    padding-bottom: 40px;
+}
+
+.logo img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.icon {
+    background-color: #4b275f; /* Couleur pour l'icône */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hourglass::before {
+    content: "⌛"; /* Emoji sablier */
+    font-size: 2rem;
+    color: white;
+}
+
+.message {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: black;
+}
+
+.interesting {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.button-container {
+    margin-top: 60px;
+}
+
+.main-button {
+    background-color: #4b275f;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.main-button:hover {
+    background-color: #341c44;
+}
+
+#countdown {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: white;
+}

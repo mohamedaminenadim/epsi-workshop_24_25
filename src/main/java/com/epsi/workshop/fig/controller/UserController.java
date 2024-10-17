@@ -2,59 +2,39 @@ package com.epsi.workshop.fig.controller;
 
 import com.epsi.workshop.fig.entity.UserEntity;
 import com.epsi.workshop.fig.service.UserService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RestController("/api")
+@Controller("/api")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    public String handleRegister(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
         try {
-            UserEntity user = userService.register(request.getUsername(), request.getEmail(), request.getPassword());
-            return ResponseEntity.ok(user);
+            UserEntity user = userService.register(username, email, password);
+            return "redirect:/index?success=You have been registered successfully!";
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            String errorMessage = e.getMessage();
+            return "redirect:/register?error=" + errorMessage;
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public String handleLogin(@RequestParam String username, @RequestParam String password) {
         try {
-            boolean isAuthenticated = userService.login(request.getEmail(), request.getPassword());
+            boolean isAuthenticated = userService.login(username, password);
             if (isAuthenticated) {
-                return ResponseEntity.ok("Login successful");
+                return "redirect:/home";
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+                return "redirect:/error?message=Unauthorized";
             }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return "redirect:/index?error=invalid_credentials";
         }
-    }
-
-    @Getter
-    private static class RegisterRequest {
-        private String username;
-        private String email;
-        private String password;
-
-        // Getters and setters
-    }
-
-    @Getter
-    private static class LoginRequest {
-        private String email;
-        private String password;
-
-        // Getters and setters
     }
 }

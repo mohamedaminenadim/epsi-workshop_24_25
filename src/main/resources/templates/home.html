@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Fig App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: var(--chanterelle);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--iroko);
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 150px; /* This will account for the fixed header */
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: space-around;
+            width: 100%; /* Adjust width as needed */
+            margin: 20px auto;
+        }
+
+        .social-icons img {
+            width: 100px;
+            margin-left: 200px;
+            margin-right: 200px;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }
+
+        .social-icons img:hover {
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .modal-content input {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: #43214d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a {
+            color: #43214d;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .logout {
+            position: absolute;
+            top: 100px; /* Adjust the distance below the header */
+            left: 10px; /* Adjust the distance from the left side */
+            font-size: 20px;
+            color: #43214d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logout:hover {
+            text-decoration: underline;
+        }
+
+        .image-content {
+            display: flex;
+            flex-direction: column-reverse;
+            text-align: center;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        h5 {
+            font-size: large;
+            margin-left: 200px;
+            margin-right: 200px;
+            width: fit-content;
+            transition: transform 0.5s ease;
+        }
+
+        h5:hover {
+            font-size: large;
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to Fig App!</h1>
+</header>
+<main>
+    <a href="/index" class="logout">Logout</a>
+
+    <div class="social-icons">
+        <div class="image-content" id="instagram-div">
+            <h5>Instagram</h5>
+            <img src="images/instagram.png" alt="Instagram" id="instagram-icon">
+        </div>
+        <div class="image-content" id="facebook-div">
+            <h5>Facebook</h5>
+            <img src="images/facebook.png" alt="Facebook" id="facebook-icon">
+        </div>
+    </div>
+
+    <div id="block-modal" class="modal">
+        <div class="modal-content">
+            <h2>Block <span id="platform-name"></span></h2>
+            <form id="block-form" action="/block" method="post">
+                <input type="hidden" id="block-domain" name="domain">
+                <label for="block-time">Block time (in minutes):</label>
+                <input type="number" id="block-time" name="blockDuration" value="5" required>
+                <br>
+                <button type="submit">Block</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+        const instagramDiv = document.getElementById('instagram-div');
+        const facebookDiv = document.getElementById('facebook-div');
+        const modal = document.getElementById('block-modal');
+        const platformName = document.getElementById('platform-name');
+        const blockDomain = document.getElementById('block-domain');
+        const blockForm = document.getElementById('block-form');
+
+        function showModal(platform, domain) {
+            platformName.textContent = platform;
+            blockDomain.value = domain;
+            modal.style.display = 'flex';
+        }
+
+
+        instagramDiv.addEventListener('click', function() {
+            showModal('Instagram', 'www.instagram.com');
+        });
+
+        facebookDiv.addEventListener('click', function() {
+            showModal('Facebook', 'www.facebook.com');
+        });
+
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        instagramDiv.addEventListener("click", function() {
+            document.getElementById("block-domain").value = "www.instagram.com";
+            document.getElementById("platform-name").textContent = "Instagram";
+            document.getElementById("block-modal").style.display = "flex";
+        });
+
+        facebookDiv.addEventListener("click", function() {
+            document.getElementById("block-domain").value = "www.facebook.com";
+            document.getElementById("platform-name").textContent = "Facebook";
+            document.getElementById("block-modal").style.display = "flex";
+        });
+
+});
+</script>
+</body>
+</html>

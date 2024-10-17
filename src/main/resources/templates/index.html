@@ -8,12 +8,10 @@
 <!--    <script src="/js/index.js"></script>-->
 </head>
 <body>
-<!-- Header -->
 <header>
     <h1>Fig Web App</h1>
 </header>
 
-<!-- Main Content -->
 <main>
     <div class="container">
         <img src="images/logo_fig_no_bg.png" alt="Fig Logo" class="logo"/>
@@ -21,21 +19,22 @@
     </div>
     <div id="login-form" class="login-form">
         <button class="back-button" id="back-button">&larr; Back</button>
-        <form action="login">
-            <label for="email">E-mail</label>
-            <input type="text" id="email">
+        <form action="/login" method="post">
+            <label for="username">Username/E-mail</label>
+            <input type="text" id="username" name="username">
             <label for="password">Password</label>
-            <input type="password" id="password">
-            <button>Login</button>
+            <input type="password" id="password" name="password">
+            <button id="btn-login" type="submit">Login</button>
             <div class="login-form-footer">
-                <p>Forgot your password ? <a href="password-reset.html">Click here to reset your password.</a></p>
+                <p>Forgot your password ? <a href="password-reset">Click here to reset your password.</a></p>
                 <p>Don't have an account yet ? <a href="registration">Click here to register now</a></p>
             </div>
         </form>
+        <p th:if="${param.error}" th:text="'Error: ' + ${param.error}"></p>
+        <p th:if="${param.success}" th:text="${param.success}"></p>
     </div>
 </main>
 
-<!-- Footer -->
 <footer>
     <p>&copy; 2024 Fig App. Tous droits réservés.</p>
 </footer>
@@ -45,20 +44,17 @@
     const loginForm = document.getElementById('login-form');
     const backButton = document.getElementById('back-button');
 
-    // Initially hide the form
     loginForm.style.display = 'none';
 
-    // Function to show the form with fade-in effect
     function showForm() {
         loginForm.style.display = 'flex';
         setTimeout(() => {
-            loginForm.style.opacity = 1;
+            loginForm.style.opacity = "1";
         }, 10);
     }
 
-    // Function to hide the form with fade-out effect
     function hideForm() {
-        loginForm.style.opacity = 0;
+        loginForm.style.opacity = "0";
         setTimeout(() => {
             loginForm.style.display = 'none';
         }, 750); // Duration matches the transition time
