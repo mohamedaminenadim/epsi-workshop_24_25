@@ -30,7 +30,7 @@
 To clone the Fig repository, run the following command:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/mohamedaminenadim/epsi-workshop_24_25
 ```
 
 Make sure you have `git` installed on your system. If you do not have it installed, you can download it from [git-scm](https://git-scm.com/).
